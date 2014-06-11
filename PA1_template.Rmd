@@ -21,7 +21,7 @@ sumsteps <- tapply(activity$steps, activity$date, sum)
 
 ## What is mean total number of steps taken per day?
 To get a sense of the data, we plot a histogram of the total number of steps taken each day
-```{r histogram, fig.height=4, fig.width=6}
+```{r histogram 1, fig.height=4, fig.width=6}
 hist(sumsteps, xlab="total number of steps taken per day", main=NULL)
 
 # Compute mean and median total num steps taken each day}
@@ -34,7 +34,7 @@ The median total number of steps taken each day is `r mediansteps`.
 
 ## What is the average daily activity pattern?
 To visualise the average daily activity pattern, We make a time series plot of the 5-minute interval and the average number of steps taken, averaged across all days.
-```{r time series plot, fig.height=5, fig.width=6}
+```{r time series plot 1, fig.height=5, fig.width=6}
 meansteps <- tapply(activity$steps, as.factor(activity$interval), mean, na.rm=T)
 
 df <- data.frame(dimnames(meansteps), unlist(meansteps))
@@ -67,12 +67,11 @@ activity$impute <- activity$steps
 for (i in seq_along(activity[,1])) 
         {activity[i,4] <- ifelse(is.na(activity[i,1]), df[which(activity[i,3]==df$interval),2],                     activity[i,1])
         }
-```
-
-```{r computes the total number of steps taken each day and plots a histogram, fig.height=4, fig.width=6}
 ## Compute the total number of steps for each day
 newsumsteps <- tapply(activity$impute, activity$date, sum)
+```
 
+```{r histogram 2, fig.height=4, fig.width=6}
 hist(newsumsteps, xlab="total number of steps taken per day", main=NULL)
 ```
 
@@ -88,7 +87,7 @@ When the missing data is filled in,
 From the histogram and the values of the mean and median, the distribution of the total daily number of steps is more symmetrical when the missing data is imputed.  
 
 ## Are there differences in activity patterns between weekdays and weekends?
-```{r plot for weekend and weekday, fig.height=6, fig.width=6}
+```{r time series 2, fig.height=6, fig.width=6}
 activity$day <- weekdays(as.Date(activity$date))
 activity$daytype <- as.factor(ifelse(
         activity$day == "Saturday"|activity$day == "Sunday","weekend","weekday"))

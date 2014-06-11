@@ -28,7 +28,7 @@ To get a sense of the data, we plot a histogram of the total number of steps tak
 hist(sumsteps, xlab = "total number of steps taken per day", main = NULL)
 ```
 
-![plot of chunk histogram](figure/histogram.png) 
+![plot of chunk histogram 1](figure/histogram_1.png) 
 
 ```r
 
@@ -53,7 +53,7 @@ colnames(df) <- c("interval", "stepmean")
 plot(df$stepmean, type = "l", xlab = "5-minute interval", ylab = "Mean number of steps")
 ```
 
-![plot of chunk time series plot](figure/time_series_plot.png) 
+![plot of chunk time series plot 1](figure/time_series_plot_1.png) 
 
 ```r
 
@@ -88,18 +88,17 @@ for (i in seq_along(activity[, 1])) {
     activity[i, 4] <- ifelse(is.na(activity[i, 1]), df[which(activity[i, 3] == 
         df$interval), 2], activity[i, 1])
 }
+## Compute the total number of steps for each day
+newsumsteps <- tapply(activity$impute, activity$date, sum)
 ```
 
 
 
 ```r
-## Compute the total number of steps for each day
-newsumsteps <- tapply(activity$impute, activity$date, sum)
-
 hist(newsumsteps, xlab = "total number of steps taken per day", main = NULL)
 ```
 
-![plot of chunk computes the total number of steps taken each day and plots a histogram](figure/computes_the_total_number_of_steps_taken_each_day_and_plots_a_histogram.png) 
+![plot of chunk histogram 2](figure/histogram_2.png) 
 
 
 
@@ -133,7 +132,7 @@ xyplot(mean_steps ~ interval | daytype, df2, layout = c(1, 2), type = "l", xlab 
     ylab = "Mean Number of Steps")
 ```
 
-![plot of chunk plot for weekend and weekday](figure/plot_for_weekend_and_weekday.png) 
+![plot of chunk time series 2](figure/time_series_2.png) 
 
 The horizontal axis gives the intervals indicated 0, 5, 10, 15 ... 2355 corresponding to the time from 0000h to 2355h. 
 
